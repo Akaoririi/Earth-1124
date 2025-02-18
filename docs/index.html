@@ -7,7 +7,36 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="author" content="Sheoriri">
 
+        <!-- 删除不必要的属性和空格 -->
+        <svg class="info-overlay" width="1550" height="1156" viewBox="0 0 1550 1156">
+            <!-- 移除fill="none"等默认值 -->
+            <g class="wade-info Wade">
+                <path class="connection-line Wade" d="M584 605L730 231"/>
+                <!-- 简化路径数据 -->
+            </g>
+        </svg>
+       
+        <!-- 在head中添加预加载指令 -->
+        <link rel="preload" href="resources/cctv-interface.webp" as="image">
+        <link rel="preload" href="resources/peter-info-panel.png" as="image">
+        <link rel="preload" href="resources/wade-info-panel.png" as="image">
+        <link rel="preload" href="resources/background.webp" as="image">
+        
         <style>
+            /*添加骨架屏*/
+            .skeleton-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.6; }
+        }
             /* 基础样式 */
             body {
                 margin: 0;
@@ -710,20 +739,26 @@
     </head>
 
     <body>
+        <!-- 添加骨架屏 -->
+        <div class="skeleton-screen">
+            <div class="skeleton-cctv"></div>
+            <div class="skeleton-map"></div>
+        </div>
+
         <div class="bg-container">
-            <img class="bg-image" src="resources/background.png" alt="background">
+            <img class="bg-image" src="resources/background.webp" alt="background">
         </div>
 
         <!-- 地图容器 -->
         <div class="map-container">
-            <img class="map-image" src="resources/map.png" alt="Map">
+            <img class="map-image" src="resources/map.webp" alt="Map">
         </div>
 
 
         <!-- CCTV面板 -->
         <div class="cctv-interface">
             <!-- 底图 -->
-            <img class="cctv-interface-image" src="resources/cctv-interface.png" alt="CCTV">
+            <img class="cctv-interface-image" src="resources/cctv-interface.webp" alt="CCTV">
 
             <!-- 检测框层 -->
             <svg class="detection-frames" width="1550" height="1156" viewBox="0 0 1550 1156" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -810,13 +845,13 @@
         <!-- 人物信息弹窗 -->    
         <div class="popup-wrapper">
             <div class="clickable-image">
-                <img src="resources/Akari-png.png" alt="Click me" id="triggerImage">
+                <img src="resources/Akari-png.webp" alt="Click me" id="triggerImage">
             </div>
             
             <div class="popup-container" id="imagePopup">
                 <div class="popup-content">
                     <button id="closeBtn" class="close-button" type="button">×</button>
-                    <img src="resources/get-info-1.png" alt="Popup image">
+                    <img src="resources/get-info-1.webp" alt="Popup image">
                 </div>
             </div>
         </div>
@@ -847,6 +882,15 @@
 
 
         <script>
+            // 根据设备性能决定加载内容
+            if ('connection' in navigator) {
+                if (navigator.connection.effectiveType === '4g') {
+                    // 加载高质量资源
+                } else {
+                    // 加载优化版本
+                }
+            }
+
             // Akari的弹窗
             document.addEventListener('DOMContentLoaded', () => {
                 const popup = document.getElementById('imagePopup');
