@@ -7,6 +7,11 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="author" content="Sheoriri">
 
+        <footer class="footer">
+            © 2025 Sheoriri 保留所有权利。本网站内容及画作严禁转载或使用<br>
+            <span class="credit-note">委托画作：著作人格权（署名权）归原作者所有，专有使用权已获授权</span>
+        </footer>
+
         <!-- 删除不必要的属性和空格 -->
         <svg class="info-overlay" width="1550" height="1156" viewBox="0 0 1550 1156">
             <!-- 移除fill="none"等默认值 -->
@@ -37,7 +42,43 @@
             50% { opacity: 0.8; }
             100% { opacity: 0.6; }
         }
-            /* 基础样式 */
+        
+        /*添加加载提示*/
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: white;
+            margin-top: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+            
+        /* 基础样式 */
             body {
                 margin: 0;
                 height: 100vh;
@@ -57,7 +98,7 @@
                 left: 0;
                 width: 100%;
                 height: 100%;
-                background: transparent;  /* 设置容器背景为透明 */
+                background: white;  /* 设置容器背景为透明 */
             }
 
             .bg-image {
@@ -735,6 +776,27 @@
                 -ms-user-select: none;
                 user-select: none;
             }
+
+            /*footer*/
+            .footer {
+            font-size: small;
+            font-style: italic;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #d1cece;
+            padding: 1rem;
+            text-align: right;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: auto;
+            margin: 0 2rem 0.5rem 0;
+            z-index: 10;
+        }
+
+        .credit-note {
+            font-size: 0.75rem;  /* 稍微小一点的字体 */
+            color: #d1cece;;     /* 稍微浅一点的颜色 */
+        }
         </style>
     </head>
 
@@ -743,6 +805,12 @@
         <div class="skeleton-screen">
             <div class="skeleton-cctv"></div>
             <div class="skeleton-map"></div>
+        </div>
+
+        <!-- 添加加载提示 -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
         </div>
 
         <div class="bg-container">
@@ -890,6 +958,39 @@
                     // 加载优化版本
                 }
             }
+
+            // 添加资源加载检查
+            document.addEventListener('DOMContentLoaded', () => {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                const images = document.querySelectorAll('img');
+                let loadedImages = 0;
+
+                function hideLoading() {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, 300);
+                }
+
+                function checkImagesLoaded() {
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        hideLoading();
+                    }
+                }
+
+                images.forEach(img => {
+                    if (img.complete) {
+                        checkImagesLoaded();
+                    } else {
+                        img.addEventListener('load', checkImagesLoaded);
+                        img.addEventListener('error', checkImagesLoaded);
+                    }
+                });
+
+                // 设置超时，防止加载时间过长
+                setTimeout(hideLoading, 5000);
+            });
 
             // Akari的弹窗
             document.addEventListener('DOMContentLoaded', () => {
@@ -1048,7 +1149,6 @@
                     });
                 });
             });
-
         </script>
     </body>
 
