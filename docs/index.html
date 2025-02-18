@@ -1,0 +1,1156 @@
+<!DOCTYPE html>
+<html>
+    <head> 
+     <title>Earth-1124Φ</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="author" content="Sheoriri">
+
+        <footer class="footer">
+            © 2025 Sheoriri 保留所有权利。本网站内容及画作严禁转载或使用<br>
+            <span class="credit-note">委托画作：著作人格权（署名权）归原作者所有，专有使用权已获授权</span>
+        </footer>
+
+        <!-- 删除不必要的属性和空格 -->
+        <svg class="info-overlay" width="1550" height="1156" viewBox="0 0 1550 1156">
+            <!-- 移除fill="none"等默认值 -->
+            <g class="wade-info Wade">
+                <path class="connection-line Wade" d="M584 605L730 231"/>
+                <!-- 简化路径数据 -->
+            </g>
+        </svg>
+       
+        <!-- 在head中添加预加载指令 -->
+        <link rel="preload" href="resources/cctv-interface.webp" as="image">
+        <link rel="preload" href="resources/peter-info-panel.png" as="image">
+        <link rel="preload" href="resources/wade-info-panel.png" as="image">
+        <link rel="preload" href="resources/background.webp" as="image">
+        
+        <style>
+            /*添加骨架屏*/
+            .skeleton-screen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: #f0f0f0;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.6; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.6; }
+        }
+        
+        /*添加加载提示*/
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #3498db;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        .loading-text {
+            color: white;
+            margin-top: 20px;
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+            
+        /* 基础样式 */
+            body {
+                margin: 0;
+                height: 100vh;
+                overflow: hidden;
+                background: transparent; 
+            }
+            
+            :root {
+            --dock-height: 70px;
+            --dock-margin: 30px;
+            }
+
+            /* 创建一个容器来包裹背景图片 */
+            .bg-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: white; 
+            }
+
+            .bg-image {
+                position: fixed;
+                top: 50%;
+                left: 42%;
+                transform: translate(-50%, -50%);
+                width: clamp(1500px, 88vw, 1800px); /* 默认尺寸（适用于1920x1080） */
+                height: auto;
+                object-fit: contain; /* 保持宽高比 */
+                z-index: -1;
+                transition: transform 0.3s ease; /* 添加缩放过渡效果 */
+            }
+
+            /* 大屏幕 */
+            @media (max-width: 1366px) {
+                .bg-image {
+                    /* 保持width: auto和height: auto的自适应比例 */
+                    width: auto;
+                    height: auto;
+                    /* 使用transform scale来整体缩小 */
+                    transform: translate(-50%, -50%) scale(0.90);
+                    left: 55%;
+                }
+            }
+
+            /* 中等屏幕 */
+            @media (max-width: 1024px) {
+                .bg-image {
+                    width: auto;
+                    height: auto;
+                    transform: translate(-50%, -50%) scale(0.85);
+                    left: 50%;
+                }
+            }
+
+            /* 小屏幕 */
+            @media (max-width: 768px) {
+                .bg-image {
+                    height: clamp(350px, 70vh, 800px);
+                    left: 10%;
+                }
+            }
+
+            /* 超小屏幕 */
+            @media (max-width: 480px) {
+                .bg-image {
+                    width: 95vw; /* 使用视窗宽度 */
+                    min-width: 300px; /* 设置最小宽度 */
+                    left: 50%;
+                }
+            }
+
+            /* 处理横屏模式 */
+            @media (orientation: landscape) and (max-height: 768px) {
+                .bg-image {
+                    height: 90vh; /* 使用视窗高度 */
+                    width: auto; /* 宽度自动调整 */
+                }
+            }
+
+            /* 顶部菜单栏 */
+            .menubar {
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+                background: rgba(255, 255, 255, 0.8);
+                backdrop-filter: blur(10px);
+                padding: 8px;
+                display: flex;
+                gap: 20px;
+                font-size: 14px;
+                position: relative; /* 添加相对定位 */
+                z-index: 1001;
+            }
+
+            .menu-item {
+                position: relative;
+                cursor: default;
+                padding: 2px 6px;
+                border-radius: 4px;
+            }
+
+            /* 底部Dock */
+            .dock {
+                position: fixed;
+                bottom: 20px;
+                left: 50%;
+                transform: translateX(-50%);
+                background: rgba(36, 35, 35, 0.5);
+                backdrop-filter: blur(12px);
+                padding: 8px 15px;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                z-index: 1000;
+                min-width: 250px;
+            }
+
+            .dock-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+                transition: transform 0.2s;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 3px;
+                position: relative; /* 添加相对定位 */
+            }
+
+            .dock-icon-clickable {
+                width: 50px;
+                height: 50px;
+                border-radius: 10px;
+                transition: transform 0.2s;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 3px;
+                position: relative; /* 添加相对定位 */
+            }
+
+            /* 修改图标基础样式 */
+            .dock-icon-clickable img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .dock-icon-clickable:hover {
+                transform: scale(1.1);
+            }
+
+            /* 修改图标基础样式 */
+            .dock-icon img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            /* 修改大图标的样式 */
+            .dock-icon.large-icon {
+                width: 55px;  /* 直接增加容器尺寸 */
+                height: 55px;
+            }
+
+            /* 图标样式 */
+            .dock-icon-clickable {
+                cursor: pointer;
+                transition: transform 0.2s ease;
+            }
+
+            .dock-icon-clickable:hover {
+                transform: scale(1.1);
+            }
+
+
+            /* 添加地图容器的样式 */
+            .map-container {
+                position: fixed;  /* 固定位置，不随页面滚动 */
+                right: clamp(30px, 4vw, 45px);/* 距离右边的距离，clamp(最小值, 首选值, 最大值) 2vw 表示视窗宽度的 2% */
+                bottom: calc(var(--dock-height) + var(--dock-margin) + 10px); /* 距离底部的距离 */
+                /* calc 用于计算，这里是 dock高度 + dock边距 + 额外10px */
+                width: clamp(650px, 45vw, 850px); /* 地图容器的宽度 */
+                height: clamp(450px, 65vh, 650px); /* 地图容器的高度 */
+                /* 这里是最小600px，首选视窗宽度的43%，最大820px */
+                /* 这里是最小400px，首选视窗高度的55%，最大550px */
+                border-radius: 10px;  /* 圆角 */
+                overflow: hidden;     /* 内容超出部分隐藏 */
+                z-index: 1;          /* 层级 */
+            }
+
+            .map-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            /* 当屏幕宽度小于1366px时的样式 */
+            @media (max-width: 1366px) {
+                .map-container {
+                    right: clamp(10px, 1vw, 20px); 
+                    width: clamp(500px, 50vw, 700px);   /* 调整宽度范围 */
+                    height: clamp(350px, 50vh, 500px);  /* 调整高度范围 */
+                    overflow: hidden；
+                }
+            }
+
+            /* 当屏幕宽度小于1024px时的样式 */
+            @media (max-width: 1024px) {
+                .map-container {
+                    width: clamp(200px, 35vw, 400px);   /* 进一步调整宽度范围 */
+                    height: clamp(250px, 30vh, 500px);  /* 进一步调整高度范围 */
+                    right: clamp(4px, 2vw, 6px); 
+                }
+            }
+
+            @media (orientation: landscape) and (max-height: 768px) {
+                .map-container {
+                    top: 65%;
+                    transform: translate(-10%, -50%);
+                }
+            }
+
+            /* CCTV相关的CSS */
+            .cctv-interface {
+                position: fixed;
+                left: 45%;
+                top: 40%;
+                transform: translate(0%, -50%);
+                width: clamp(400px, 60vw, 650px);
+                height: auto;
+                z-index: 1000;
+            }
+
+            .cctv-interface-image {
+                width: 100%;
+                height: auto;
+                display: block;
+                object-fit: contain;
+            }
+
+            /* 添加媒体查询 */
+            @media (max-width: 1366px) {
+                .cctv-interface {
+                    width: clamp(350px, 55vw, 600px);
+                    left: 42%;
+                }
+            }
+
+            @media (max-width: 1024px) {
+                .cctv-interface {
+                    width: clamp(350px, 50vw, 550px);
+                    left: 45%;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .cctv-interface {
+                    width: clamp(250px, 45vw, 500px);
+                    left: 35%;
+                }
+            }
+
+            @media (orientation: landscape) and (max-height: 768px) {
+                .cctv-interface {
+                    top: 45%;
+                    transform: translate(0%, -50%) scale(0.8);
+                }
+            }
+
+            /* 检测框层 */
+            .detection-frames {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: all;
+            }
+
+            .character-group {
+                cursor: pointer;
+            }
+
+            .click-area {
+                cursor: pointer;
+                pointer-events: all;
+                fill-opacity: 0.01;
+            }
+
+            .detection-frame {
+                fill-opacity: 0.6;
+                transition: fill-opacity 0.3s ease;
+                pointer-events: none;
+            }
+
+            .character-group:hover .detection-frame {
+                fill-opacity: 1;
+            }
+
+            .name {
+                pointer-events: none;
+            }
+
+            .detection-frames {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: all;
+            }
+
+            /* 确保检测框和文字在缩放时保持清晰 */
+            .detection-frame, .name {
+                vector-effect: non-scaling-stroke;
+            }
+
+            /* 信息交互层样式 */
+            .info-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%; 
+                pointer-events: none;
+            }
+
+            .connection-line, .info-panel {
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .connection-line.active, .info-panel.active {
+                opacity: 1;
+            }
+
+            .info-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                transform-origin: top left; /* 设置变换原点 */
+            }
+
+            @media (max-width: 1366px) {
+                .info-overlay {
+                    transform: scale(0.9);
+                }
+            }
+
+            @media (max-width: 1024px) {
+                .info-overlay {
+                    transform: scale(0.8);
+                }
+            }
+            
+            /*触摸设备支持*/
+            @media (hover: none) {
+                .character-group {
+                    cursor: pointer;
+                    touch-action: manipulation;
+                }
+                
+                .click-area {
+                    touch-action: manipulation;
+                }
+            }
+
+            /*添加平滑过渡*/
+            .cctv-interface, .info-overlay, .detection-frames {
+                transition: transform 0.3s ease;
+            }
+                        
+            /* 添加文件夹的样式 */
+            .folder-container {
+            position: fixed;
+            left: 20px;  /* 距离左侧的距离 */
+            top: 33%;    /* 垂直居中的起点 */
+            transform: translateY(-50%);  /* 确保完全垂直居中 */
+            display: flex;
+            flex-direction: column;  /* 垂直排列 */
+            gap: 35px;  /* 文件夹之间的间距 */
+            z-index: 2;
+            }
+                
+            .folder {
+                width: 80px;  /* 文件夹图标的宽度 */
+                height: 64px; /* 文件夹图标的高度 */
+                cursor: pointer;
+                transition: transform 0.2s;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-decoration: none;  /* 移除链接下划线 */
+                gap: 1px;  /* 图标和文字之间的间距 */
+            }
+
+            .folder img {
+                width: 100%;
+                height: 100%;
+                object-fit: contain;
+            }
+
+            .folder-name {
+                margin-top: 5px;
+                color: #666;
+                font-size: 13px;  /* 文字大小 */
+                font-family: -apple-system, BlinkMacSystemFont, sans-serif;  /* 系统字体 */
+                user-select: none;  /* 防止文字被选中 */
+            }
+
+            /* 悬停时文件夹和文字一起放大 */
+            .folder:hover {
+                transform: scale(1.1);
+            }
+
+            /* 如果你想让文字在悬停时变色 */
+            .folder:hover .folder-name {
+                color: rgb(0, 122, 255);  /* macOS 蓝色 */
+            }
+
+            /*人物简介弹窗*/
+            /* 触发图片容器 */
+            .clickable-image {
+                position: fixed;
+                left: 50%;
+                top: 50%;
+                transform: translate(-115%, -50%);
+                z-index: 10;
+                cursor: pointer;
+                /* 添加容器的最大宽度限制 */
+                width: clamp(150px, 14vw, 300px); /* 最小px，首选视窗宽度的%，最大px */
+                height: auto;
+            }
+
+            .clickable-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                transition: transform 0.2s ease;
+                object-fit: contain; /* 保持图片比例 */
+            }
+
+            /* 弹窗容器 */
+            /* 为了确保弹窗位置正确，需要添加一个包装器 */
+            .popup-wrapper {
+                position: fixed;  /* 改为fixed定位 */
+                left: 50%;
+                top: 50%;
+                transform: translate(-80%, -50%);
+                z-index: 10;
+                display: flex;  /* 使用flex布局 */
+                align-items: center;  /* 垂直居中对齐 */
+                gap: 10px;  /* 触发图片和弹窗之间的间距 */
+                z-index: 1000
+            }
+
+            .popup-container {
+                opacity: 0;
+                visibility: hidden;
+                position: absolute;  /* 改回absolute定位 */
+                right: calc(100% + 20px);  /* 在触发图片右侧px处 */
+                top: 0;  /* 与触发图片顶部对齐 */
+                transform: translateY(-50%);
+                width: clamp(200px, 35vw, 500px); 
+                pointer-events: none;/* 初始状态不接收点击事件 */
+                transition: opacity 0.3s ease, visibility 0.3s ease;
+            }
+
+            .popup-container.active {
+                opacity: 1;
+                visibility: visible;
+            }
+
+            .popup-content {
+                transform: scale(0.7);
+                transition: transform 0.3s ease;
+                position: relative;
+                /* 调整大小 */
+                width: clamp(200px, 20vw, 300px);
+                pointer-events: auto; /* 确保内容可以接收点击事件 */
+            }
+
+            .popup-container.active .popup-content {
+            transform: scale(1);
+            }
+
+            .popup-content img {
+                width: 100%;
+                height: auto;
+                object-fit: contain;
+                border-radius: 8px;
+            }
+
+            @media (max-width: 1024px) {
+                .clickable-image {
+                    width: clamp(150px, 16vw, 280px); 
+                    transform: translate(-80%, -50%);
+                }
+                    
+                .popup-content img {
+                    width: clamp(150px, 25vw, 350px);
+                }
+            }
+
+            @media (max-width: 768px) {
+                .clickable-image {
+                    width: clamp(120px, 25vw, 250px); /* 在小屏幕上调整大小 */
+                }
+                    
+                .popup-content img {
+                    width: clamp(150px, 25vw, 350px);
+                }
+            }
+
+            /* 在更小的屏幕上进一步调整 */
+            @media (max-width: 480px) {
+                .clickable-image {
+                    width: clamp(100px, 30vw, 200px);
+                }
+            }
+
+                .popup-container.active .popup-content {
+                    transform: scale(1);
+                }
+
+                .popup-content img {
+                    max-width: 100%;
+                    max-height: 90vh;
+                    object-fit: contain;
+                    border-radius: 8px;
+            }
+
+            /* 修改画廊样式 */
+            .gallery-container {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.9);
+                z-index: 10002;
+                display: none;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+
+            .gallery-container.active {
+                display: flex;
+                opacity: 1;
+            }
+
+            .gallery-content {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            /* 图片容器 */
+            .gallery-image-container {
+                position: relative;
+                width: 90%;
+                height: 90%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .gallery-image {
+                max-width: 90%;
+                max-height: 90vh;
+                object-fit: contain;
+            }
+
+            /* 导航按钮 */
+            .gallery-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                background: rgba(255, 255, 255, 0.1);
+                border: none;
+                color: white;
+                padding: 15px;
+                cursor: pointer;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: background-color 0.3s ease;
+            }
+
+            .gallery-nav:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .gallery-nav.prev {
+                left: 20px;
+            }
+
+            .gallery-nav.next {
+                right: 20px;
+            }
+
+            /* 关闭按钮 */
+            .gallery-close {
+                position: absolute;
+                top: 20px;
+                right: 20px;
+                color: white;
+                font-size: 30px;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-color: rgba(255, 255, 255, 0.1);
+                border-radius: 50%;
+                transition: background-color 0.2s ease;
+            }
+
+            .gallery-close:hover {
+                background-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .protected-image-wrapper {
+                position: relative;
+                display: inline-block;
+                max-width: 90%;
+                max-height: 90vh;
+            }
+
+            .gallery-image {
+                display: block;
+                max-width: 100%;
+                max-height: 90vh;
+                object-fit: contain;
+                pointer-events: none;
+                -webkit-user-drag: none;
+                user-select: none;
+            }
+
+            .watermark-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                opacity: 0.7;
+                mix-blend-mode: overlay;
+            }
+
+            .noise-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-image: url("data:image/png;base64,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");
+                opacity: 0.03;
+                pointer-events: none;
+                mix-blend-mode: multiply;
+            }
+
+            .protection-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 2;
+            }
+
+            /* 添加一些额外的保护样式 */
+            .gallery-container * {
+                -webkit-touch-callout: none;
+                -webkit-user-select: none;
+                -khtml-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+
+            /*footer*/
+            .footer {
+            font-size: small;
+            font-style: italic;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            color: #d1cece;
+            padding: 1rem;
+            text-align: right;
+            position: fixed;
+            bottom: 0;
+            right: 0;
+            width: auto;
+            margin: 0 2rem 0.5rem 0;
+            z-index: 10;
+        }
+
+        .credit-note {
+            font-size: 0.75rem;  /* 稍微小一点的字体 */
+            color: #d1cece;;     /* 稍微浅一点的颜色 */
+        }
+        </style>
+    </head>
+
+    <body>
+        <!-- 添加骨架屏 -->
+        <div class="skeleton-screen">
+            <div class="skeleton-cctv"></div>
+            <div class="skeleton-map"></div>
+        </div>
+
+        <!-- 添加加载提示 -->
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="loading-spinner"></div>
+            <div class="loading-text">Loading...</div>
+        </div>
+
+        <div class="bg-container">
+            <img class="bg-image" src="resources/background.webp" alt="background">
+        </div>
+
+        <!-- 地图容器 -->
+        <div class="map-container">
+            <img class="map-image" src="resources/map.webp" alt="Map">
+        </div>
+
+
+        <!-- CCTV面板 -->
+        <div class="cctv-interface">
+            <!-- 底图 -->
+            <img class="cctv-interface-image" src="resources/cctv-interface.webp" alt="CCTV">
+
+            <!-- 检测框层 -->
+            <svg class="detection-frames" width="1550" height="1156" viewBox="0 0 1550 1156" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Peter区域 -->
+                <g class="character-group Peter">
+                    <!-- 框框（最下层） -->
+                    <path class="detection-frame" d="M859.443 684H800.315V705H686.942H679.942V712V908V915H686.942H852.501H859.501V908V712V705H859.443V684ZM686.942 712H693.942H845.501H852.501V719V901V908H845.501H693.942H686.942V901V719V712Z" fill="#FD7506"/>
+                    <!-- 名字（中间层） -->
+                    <path class="name" d="M802 703V688H809.5V690.5H812V695.5H809.5V698H804.5V703H802ZM804.5 695.5H809.5V690.5H804.5V695.5ZM817 703V700.5H814.5V695.5H817V700.5H819.5V698H822V700.5H824.5V703H817ZM817 695.5V693H822V695.5H824.5V698H822V695.5H817ZM829.5 703V700.5H827V690.5H829.5V693H832V695.5H829.5V700.5H832V703H829.5ZM837 703V700.5H834.5V695.5H837V700.5H839.5V698H842V700.5H844.5V703H837ZM837 695.5V693H842V695.5H844.5V698H842V695.5H837ZM849.5 703V700.5H847V693H849.5V700.5H854.5V693H857V705.5H854.5V703H849.5ZM849.5 708V705.5H854.5V708H849.5Z" fill="white"/>
+                    <!-- 透明点击区域（最上层） -->
+                    <path class="click-area" d="M856.443 684H797.315V708H686.942H682.942V712V908V912H686.942H852.501H856.501V908V712V708H856.443V684Z" fill="rgba(255, 255, 255, 0.01)"/>
+                </g>
+
+                <!-- Wade区域 -->
+                <g class="character-group Wade">
+                    <!-- 框框（最下层） -->
+                    <path class="detection-frame" d="M555 627H498V651V658V868V875H505H660H667V868V658V651H660H555V627ZM505 658H660V868H505V658Z" fill="#0652FD"/>
+                    <!-- 名字（中间层） -->
+                    <path class="name" d="M504.5 646V643.5H502V631H504.5V643.5H507V646H504.5ZM512 643.5V631H514.5V643.5H512ZM509.5 646V643.5H507V638.5H509.5V643.5H512V646H509.5ZM517 643.5V638.5H519.5V643.5H524.5V638.5H519.5V636H524.5V638.5H527V646H519.5V643.5H517ZM529.5 643.5V638.5H532V643.5H537V638.5H532V636H537V631H539.5V646H532V643.5H529.5ZM544.5 646V643.5H542V638.5H544.5V643.5H547V641H549.5V643.5H552V646H544.5ZM544.5 638.5V636H549.5V638.5H552V641H549.5V638.5H544.5Z" fill="white"/>
+                    <!-- 透明点击区域（最上层） -->
+                    <path class="click-area" d="M555 627H498V651V655V871V875H502H663H667V871V655V651H663H555V627Z" fill="rgba(255, 255, 255, 0.01)"/>
+                </g>
+            </svg>
+
+            <!-- 信息交互层 -->
+            <svg class="info-overlay" width="1632" height="1206" viewBox="0 0 1632 1205" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Wade的信息组 -->
+                <image class="info-panel Wade" x="699" y="15" width="590" height="1000" 
+                        href="resources/wade-info-panel.png"/> 
+
+                <!-- Peter的信息组 -->
+                <image class="info-panel Peter" x="905" y="95" width="750" height="1100" 
+                    href="resources/peter-info-panel.png"/>
+            </svg>
+        </div>
+
+        <!-- Folders -->
+        <div class="folder-container">
+            <a href="Akari_profile.jpg" class="folder" target="_blank" rel="noopener noreferrer">
+                <img src="resources/icon/folder_icon.png" alt="Folder 1">
+                <div class="folder-name">人设卡</div>
+            </a>
+            <a href="AkariTimeline.html" class="folder" target="_blank" rel="noopener noreferrer">
+                <img src="resources/icon/folder_icon.png" alt="Folder 2">
+                <div class="folder-name">时间线/故事</div>
+            </a>
+            <a href="#" class="folder" target="_blank" rel="noopener noreferrer">
+                <img src="resources/icon/folder_icon.png" alt="Folder 3">
+                <div class="folder-name">施工中</div>
+            </a>
+        </div>
+
+        <!-- 底部Dock -->
+        <div class="dock">
+            <div class="dock-icon">
+                <img src="resources/icon/Finder_Icon.png" alt="Finder">
+            </div>
+            <div class="dock-icon">
+                <img src="resources/icon/safari.png" alt="Safari">
+            </div>
+            <div class="dock-icon-clickable">
+                <img src="resources/icon/apple photos icon.png" alt="Photos">
+            </div>
+            <div class="dock-icon large-icon">
+                <img src="resources/icon/steam.png" alt="Steam">
+            </div>
+            <div class="dock-icon">
+                <img src="resources/icon/signal-icon.svg" alt="Signal">
+            </div>
+            <div class="dock-icon">
+                <img src="resources/icon/contact-icon.png" alt="Contact">
+            </div>
+            <div class="dock-icon">
+                <img src="resources/icon/map icon.png" alt="Map">
+            </div>
+            <div class="dock-icon large-icon">
+                <img src="resources/icon/Python IDLE.png" alt="Python">        
+            </div>
+            <div class="dock-icon large-icon">
+                <img src="resources/icon/terminal.png" alt="Terminal">
+            </div>
+        </div>
+    
+        <!-- 人物信息弹窗 -->    
+        <div class="popup-wrapper">
+            <div class="clickable-image">
+                <img src="resources/Akari-png.webp" alt="Click me" id="triggerImage">
+            </div>
+            
+            <div class="popup-container" id="imagePopup">
+                <div class="popup-content">
+                    <button id="closeBtn" class="close-button" type="button">×</button>
+                    <img src="resources/get-info-1.webp" alt="Popup image">
+                </div>
+            </div>
+        </div>
+
+        <!-- 图片画廊容器 -->
+        <div class="gallery-container" id="photoGallery">
+            <div class="gallery-content">
+                <div class="gallery-close">&times;</div>
+                <button class="gallery-nav prev">&#10094;</button>
+                <div class="protected-image-wrapper">
+                    <img class="gallery-image" src="" alt="Gallery image">
+                    <svg class="watermark-overlay" viewBox="0 0 100 100" preserveAspectRatio="none">
+                        <defs>
+                            <pattern id="watermark" patternUnits="userSpaceOnUse" width="150" height="150">
+                                <text x="0" y="15" transform="rotate(-45 30,0)" 
+                                    fill="rgba(19,19,19,0.5)" 
+                                    font-size="12">© Sheoriri 2025</text>
+                            </pattern>
+                        </defs>
+                        <rect width="100%" height="100%" fill="url(#watermark)"/>
+                    </svg>
+                    <div class="noise-overlay"></div>
+                    <div class="protection-overlay"></div>
+                </div>
+                <button class="gallery-nav next">&#10095;</button>
+            </div>
+        </div>
+
+
+        <script>
+            // 根据设备性能决定加载内容
+            if ('connection' in navigator) {
+                if (navigator.connection.effectiveType === '4g') {
+                    // 加载高质量资源
+                } else {
+                    // 加载优化版本
+                }
+            }
+
+            // 添加资源加载检查
+            document.addEventListener('DOMContentLoaded', () => {
+                const loadingOverlay = document.getElementById('loadingOverlay');
+                const images = document.querySelectorAll('img');
+                let loadedImages = 0;
+
+                function hideLoading() {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, 300);
+                }
+
+                function checkImagesLoaded() {
+                    loadedImages++;
+                    if (loadedImages === images.length) {
+                        hideLoading();
+                    }
+                }
+
+                images.forEach(img => {
+                    if (img.complete) {
+                        checkImagesLoaded();
+                    } else {
+                        img.addEventListener('load', checkImagesLoaded);
+                        img.addEventListener('error', checkImagesLoaded);
+                    }
+                });
+
+                // 设置超时，防止加载时间过长
+                setTimeout(hideLoading, 5000);
+            });
+
+            // Akari的弹窗
+            document.addEventListener('DOMContentLoaded', () => {
+                const popup = document.getElementById('imagePopup');
+                const triggerImage = document.getElementById('triggerImage');
+                const closeButton = document.querySelector('.close-button');
+                const popupContent = popup.querySelector('.popup-content');
+
+                // 修改触发图片点击事件为切换功能
+                triggerImage.addEventListener('click', (e) => {
+                    e.stopPropagation(); // 防止触发全局点击
+                    if (popup.classList.contains('active')) {
+                        popup.classList.remove('active'); // 如果弹窗是打开的，就关闭它
+                    } else {
+                        popup.classList.add('active'); // 如果弹窗是关闭的，就打开它
+                    }
+                });
+
+                // 点击关闭按钮隐藏弹窗
+                closeButton.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    popup.classList.remove('active');
+                });
+
+                // 点击弹窗内容阻止事件冒泡
+                popupContent.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                });
+
+                // 点击页面任何地方关闭弹窗
+                document.addEventListener('click', () => {
+                    if (popup.classList.contains('active')) {
+                        popup.classList.remove('active');
+                    }
+                });
+
+                // ESC键关闭弹窗
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape' && popup.classList.contains('active')) {
+                        popup.classList.remove('active');
+                    }
+                });
+            });
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const dockIcon = document.querySelector('.dock-icon-clickable');
+                const gallery = document.getElementById('photoGallery');
+                const closeBtn = gallery.querySelector('.gallery-close');
+                const prevBtn = gallery.querySelector('.gallery-nav.prev');
+                const nextBtn = gallery.querySelector('.gallery-nav.next');
+                const galleryImage = gallery.querySelector('.gallery-image');
+            
+                // 图片数组
+                const images = [
+                    'resources/gallery/catch.jpg',
+                    'resources/gallery/cute.jpg',
+                    'resources/gallery/dnd_au.JPG',
+                    'resources/gallery/Y2K_blue.jpg',
+                    'resources/gallery/KnockKnock.jpg',
+                ];
+                
+                let currentImageIndex = 0;
+                
+                // 更新图片显示
+                function updateImage() {
+                    galleryImage.src = images[currentImageIndex];
+                }
+                
+                // 下一张图片
+                function nextImage() {
+                    currentImageIndex = (currentImageIndex + 1) % images.length;
+                    updateImage();
+                }
+                
+                // 上一张图片
+                function prevImage() {
+                    currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+                    updateImage();
+                }
+                
+                // 打开画廊
+                dockIcon.addEventListener('click', function() {
+                    currentImageIndex = 0;
+                    updateImage();
+                    gallery.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                });
+                
+                // 关闭画廊
+                closeBtn.addEventListener('click', function() {
+                    gallery.classList.remove('active');
+                    document.body.style.overflow = '';
+                });
+                
+                // 导航按钮事件
+                nextBtn.addEventListener('click', nextImage);
+                prevBtn.addEventListener('click', prevImage);
+                
+                // 键盘导航
+                document.addEventListener('keydown', function(e) {
+                    if (!gallery.classList.contains('active')) return;
+                    
+                    switch(e.key) {
+                        case 'ArrowRight':
+                            nextImage();
+                            break;
+                        case 'ArrowLeft':
+                            prevImage();
+                            break;
+                        case 'Escape':
+                            gallery.classList.remove('active');
+                            document.body.style.overflow = '';
+                            break;
+                    }
+                });
+                
+                // 添加额外的保护措施
+                document.addEventListener('contextmenu', (e) => e.preventDefault());
+                document.addEventListener('dragstart', (e) => e.preventDefault());
+                document.addEventListener('keydown', (e) => {
+                    if (e.ctrlKey && (e.key === 'u' || e.key === 's')) {
+                        e.preventDefault();
+                    }
+                });
+            });
+
+            // CCTV交互
+            document.addEventListener('DOMContentLoaded', () => {
+                const characterGroups = document.querySelectorAll('.character-group');
+                
+                characterGroups.forEach(group => {
+                    group.addEventListener('click', (e) => {
+                        e.stopPropagation();
+                        
+                        // 获取人物类名
+                        const character = Array.from(group.classList)
+                            .find(cls => cls !== 'character-group');
+                        
+                        // 移除所有active类
+                        document.querySelectorAll('.connection-line, .info-panel').forEach(el => {
+                            el.classList.remove('active');
+                        });
+                        
+                        // 为对应人物的元素添加active类
+                        document.querySelectorAll(`.connection-line.${character}, .info-panel.${character}`).forEach(el => {
+                            el.classList.add('active');
+                        });
+                    });
+                });
+
+                // 点击其他地方时隐藏信息
+                document.addEventListener('click', () => {
+                    document.querySelectorAll('.connection-line, .info-panel').forEach(el => {
+                        el.classList.remove('active');
+                    });
+                });
+            });
+
+        </script>
+    </body>
+
+</html>
