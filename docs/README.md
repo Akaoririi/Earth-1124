@@ -12,20 +12,20 @@
 1. 网站界面设计与创意 © 2025 Sheoriri，保留所有权利
 2. 文章内容采用 CC BY-NC-ND 4.0 许可证（署名-非商业性使用-禁止改编）
 3. 委托画作版权归各位画师所有：
-   - Akari Yatsuki角色立绘 © RoRobin （著作人格权归原画师所有，专有使用权已获授权）
-   - Asher Klein角色立绘 © RoRobin
-   - CCTV界面插图 © 无敌霹雳爆爆龙（ID RrVZYQWr）
-   - 半身Q版插图 © Anaphylaxie （ID kEd1xWQr）
-   - Catch插画 © 神奇山羊（ID 9E1Xx94B）
-   - Y2K AU插图 © miao555
-   - 便签纸-Doodle © Y3 （ID gr3Jx0AE）
-   - Daredevil & Punisher头像 © ALEOC
-   - 全身Q版插图·动森 © 缝森
+   - Akari Yatsuki角色立绘 © Sheoriri (Created by RoRobin)，保留所有权利
+   - Asher Klein角色立绘 © RoRobin（著作人格权归原画师所有，专有使用权归本人所有）
+   - CCTV界面插图 © 无敌霹雳爆爆龙（ID RrVZYQWr）（著作人格权归原画师所有，专有使用权归本人所有）
+   - 半身Q版插图 © Anaphylaxie （ID kEd1xWQr）（著作人格权归原画师所有，专有使用权归本人所有）
+   - Catch插画 © 神奇山羊（ID 9E1Xx94B）（著作人格权归原画师所有，专有使用权归本人所有）
+   - Y2K AU插图 © miao555（著作人格权归原画师所有，专有使用权归本人所有）
+   - 便签纸-Doodle © Y3 （ID gr3Jx0AE）（著作人格权归原画师所有，专有使用权归本人所有）
+   - Daredevil & Punisher头像 © ALEOC（著作人格权归原画师所有，专有使用权归本人所有）
+   - 全身Q版插图·动森 © 缝森（著作人格权归原画师所有，专有使用权归本人所有）
 
 ### 使用指南
 - 如果你想使用本项目的代码：请遵守MIT许可证
 - 如果你想转载文章：请遵守CC BY-NC-ND 4.0条款
-- 如果你想使用插画：请直接联系对应画师获取授权
+- 所有插画作品：保留所有权利，禁止转载或使用
   
 # Copyright Notice
 
@@ -41,17 +41,17 @@ This repository's code is open-sourced under the MIT License.
 1. Website interface design and creative concept © 2025 Sheoriri, all rights reserved
 2. Article content is licensed under CC BY-NC-ND 4.0 (Attribution-NonCommercial-NoDerivatives)
 3. Commissioned artworks are copyrighted by respective artists:
-   - "Akari Yatsuki" Character illustration © RoRobin (Moral rights remain with the original artist, exclusive usage rights granted)
-   - "Asher Klein" Character illustration © RoRobin
-   - CCTV interface illustration © 无敌霹雳爆爆龙 (ID RrVZYQWr)
-   - Half-body Q-version illustration © Anaphylaxie (ID kEd1xWQr)
-   - Catch illustration © 神奇山羊 (ID 9E1Xx94B)
-   - Y2K AU illustration © miao555
-   - Sticky note-Doodle © Y3 (ID gr3Jx0AE)
-   - Daredevil & Punisher avatars © ALEOC
-   - Full-body Q-version illustration·Animal Crossing © 缝森
+   - "Akari Yatsuki" Character illustration © RoRobin © Sheoriri (Created by RoRobin), all rights reserved
+   - "Asher Klein" Character illustration © RoRobin (Moral rights remain with the original artist, exclusive usage rights granted)
+   - CCTV interface illustration © 无敌霹雳爆爆龙 (ID RrVZYQWr) (Moral rights remain with the original artist, exclusive usage rights granted)
+   - Half-body Q-version illustration © Anaphylaxie (ID kEd1xWQr) (Moral rights remain with the original artist, exclusive usage rights granted)
+   - Catch illustration © 神奇山羊 (ID 9E1Xx94B) (Moral rights remain with the original artist, exclusive usage rights granted)
+   - Y2K AU illustration © miao555 (Moral rights remain with the original artist, exclusive usage rights granted)
+   - Sticky note-Doodle © Y3 (ID gr3Jx0AE) (Moral rights remain with the original artist, exclusive usage rights granted)
+   - Daredevil & Punisher avatars © ALEOC (Moral rights remain with the original artist, exclusive usage rights granted)
+   - Full-body Q-version illustration·Animal Crossing © 缝森 (Moral rights remain with the original artist, exclusive usage rights granted)
   
 ### Usage Guidelines
 - If you wish to use the code from this project: Please comply with the MIT License
 - If you wish to share or repost articles: Please follow CC BY-NC-ND 4.0 terms
-- If you wish to use the illustrations: Please contact the respective artists directly for permission
+- All illustrations: All rights reserved, no reproduction or usage allowed
