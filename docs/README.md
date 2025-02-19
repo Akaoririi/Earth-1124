@@ -39,16 +39,16 @@ This repository's code is open-sourced under the MIT License.
 ### Detailed Information
 1. Website interface design and creative concept © 2025 Sheoriri, all rights reserved
 2. Article content is licensed under CC BY-NC-ND 4.0 (Attribution-NonCommercial-NoDerivatives)
-3. Commissioned artworks are copyrighted by respective artists:
+3. Rights statement for commissioned artworks:
    - "Akari Yatsuki" Character illustration © RoRobin © Sheoriri (Created by RoRobin), all rights reserved
-   - "Asher Klein" Character illustration © RoRobin (Moral rights remain with the original artist, exclusive usage rights granted)
-   - CCTV interface illustration © 无敌霹雳爆爆龙 (ID RrVZYQWr) (Moral rights remain with the original artist, exclusive usage rights granted)
-   - Half-body Q-version illustration © Anaphylaxie (ID kEd1xWQr) (Moral rights remain with the original artist, exclusive usage rights granted)
-   - Catch illustration © 神奇山羊 (ID 9E1Xx94B) (Moral rights remain with the original artist, exclusive usage rights granted)
-   - Y2K AU illustration © miao555 (Moral rights remain with the original artist, exclusive usage rights granted)
-   - Sticky note-Doodle © Y3 (ID gr3Jx0AE) (Moral rights remain with the original artist, exclusive usage rights granted)
-   - Daredevil & Punisher avatars © ALEOC (Moral rights remain with the original artist, exclusive usage rights granted)
-   - Full-body Q-version illustration·Animal Crossing © 缝森 (Moral rights remain with the original artist, exclusive usage rights granted)
+   - "Asher Klein" Character illustration © RoRobin (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
+   - CCTV interface illustration © 无敌霹雳爆爆龙 (ID RrVZYQWr) (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
+   - Half-body Q-version illustration © Anaphylaxie (ID kEd1xWQr) (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
+   - Catch illustration © 神奇山羊 (ID 9E1Xx94B) (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
+   - Y2K AU illustration © miao555 (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
+   - Sticky note-Doodle © Y3 (ID gr3Jx0AE) (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
+   - Daredevil & Punisher avatars © ALEOC (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
+   - Full-body Q-version illustration·Animal Crossing © 缝森 (Moral rights remain with the original artist, exclusive usage rights belong to the commissioner)
   
 ### Usage Guidelines
 - If you wish to use the code from this project: Please comply with the MIT License
