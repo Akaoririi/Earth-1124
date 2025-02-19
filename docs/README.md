@@ -1,9 +1,24 @@
-# 版权说明
+# Sheoriri's Personal Website
 
-## 代码部分
+这是我的个人OC网站，主要用于展示原创角色和相关创作。
+
+## 使用的工具
+### 网站开发
+- HTML
+- CSS
+- JavaScript
+
+### 设计工具
+- Figma - UI设计和原型图
+- Adobe Photoshop - 图片处理
+- Adobe Illustrator - 矢量图形设计
+
+## 版权说明
+
+### 代码部分
 本仓库的代码采用 MIT 许可证开源。
 
-## 创意内容与艺术作品
+### 创意内容与艺术作品
 - 所有文章、设计创意和原创内容版权归作者所有
 - 未经授权，禁止转载或商业使用
 
@@ -25,13 +40,27 @@
 - 如果你想使用本项目的代码：请遵守MIT许可证
 - 如果你想转载文章：请遵守CC BY-NC-ND 4.0条款
 - 所有插画作品：保留所有权利，禁止转载或使用
-  
-# Copyright Notice
 
-## Code
+# Sheoriri's Personal Website
+This is my personal OC (Original Character) website, dedicated to showcasing original characters and related creative works.
+
+## Tools Used
+### Web Development
+- HTML
+- CSS
+- JavaScript
+
+### Design Tools
+- Figma - UI Design and Prototyping
+- Adobe Photoshop - Image Processing
+- Adobe Illustrator - Vector Graphics Design
+  
+## Copyright Notice
+
+### Code
 This repository's code is open-sourced under the MIT License.
 
-## Creative Content and Artworks
+### Creative Content and Artworks
 - All articles, design concepts, and original content are copyrighted by the author
 - Reproduction or commercial use without authorization is prohibited
 - Commissioned illustrations are copyrighted by the original artists, usage requires artist authorization
