@@ -21,6 +21,11 @@
    - 便签纸-Doodle © Y3 （ID gr3Jx0AE）
    - Daredevil & Punisher头像 © ALEOC
    - 全身Q版插图·动森 © 缝森
+
+### 使用指南
+- 如果你想使用本项目的代码：请遵守MIT许可证
+- 如果你想转载文章：请遵守CC BY-NC-ND 4.0条款
+- 如果你想使用插画：请直接联系对应画师获取授权
   
 # Copyright Notice
 
@@ -45,3 +50,8 @@ This repository's code is open-sourced under the MIT License.
    - Sticky note-Doodle © Y3 (ID gr3Jx0AE)
    - Daredevil & Punisher avatars © ALEOC
    - Full-body Q-version illustration·Animal Crossing © 缝森
+  
+### Usage Guidelines
+- If you wish to use the code from this project: Please comply with the MIT License
+- If you wish to share or repost articles: Please follow CC BY-NC-ND 4.0 terms
+- If you wish to use the illustrations: Please contact the respective artists directly for permission
