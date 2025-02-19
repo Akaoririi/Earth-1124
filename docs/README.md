@@ -1,6 +1,7 @@
 # Sheoriri's Personal Website
 
 这是我的个人OC网站，主要用于展示原创角色和相关创作。
+故事发生在漫威背景的Earth-1124Φ平行宇宙中，这个宇宙编号来源于主角Akari Yatsuki的生日（11月24日）。
 
 ## 使用的工具
 ### 网站开发
@@ -43,7 +44,8 @@
 - 所有插画作品：保留所有权利，禁止转载或使用
 
 # Sheoriri's Personal Website
-This is my personal OC (Original Character) website, dedicated to showcasing original characters and related creative works.
+This is my personal OC (Original Character) website, dedicated to showcasing original characters and related creative works. 
+The story takes place in Earth-1124Φ, a parallel Marvel universe named after the protagonist(Akari Yatsuki)'s birthday (November 24th).
 
 ## Tools Used
 ### Web Development
